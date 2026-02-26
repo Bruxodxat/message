@@ -15,6 +15,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      overflow: hidden; /* evita barra de rolagem */
     }
 
     h1 {
@@ -39,6 +40,20 @@
       font-size: 0.9em;
       opacity: 0.7;
     }
+
+    /* Estilo dos "X" animados */
+    .particle {
+      position: absolute;
+      font-size: 1.5em;
+      font-weight: bold;
+      opacity: 0.8;
+      animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh) rotate(0deg); }
+      to { transform: translateY(-10vh) rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -46,5 +61,24 @@
   <h1>Esta mensagem já expirou</h1>
   <p>Por motivos de segurança, não é mais possível visualizar o conteúdo.</p>
   <footer>Mensagem autodestrutiva • Visualização única</footer>
+
+  <script>
+    // Criar partículas "X"
+    function createParticles() {
+      const colors = ['#fff', '#ffd700', '#ff69b4', '#00ffff', '#adff2f'];
+      for (let i = 0; i < 25; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.textContent = 'X';
+        particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+        particle.style.animationDuration = `${5 + Math.random() * 10}s`;
+        document.body.appendChild(particle);
+      }
+    }
+
+    createParticles();
+  </script>
 </body>
 </html>
