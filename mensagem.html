@@ -27,19 +27,23 @@
       position: absolute;
       font-size: 1em; /* menor tamanho */
       opacity: 0.9;
-      animation: floatUp linear infinite;
+      animation: floatUp linear infinite, fadeInOut ease-in-out infinite;
     }
 
     @keyframes floatUp {
       from { transform: translateY(100vh) rotate(0deg); }
       to { transform: translateY(-10vh) rotate(360deg); }
     }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
   </style>
   <script>
     // Redireciona após 5 segundos substituindo no histórico
     setTimeout(() => {
       window.location.replace("expirado.html"); 
-      // replace() impede que o usuário volte para mensagem.html
     }, 5000);
 
     // Criar emojis animados
@@ -50,8 +54,8 @@
         emoji.classList.add('emoji');
         emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
         emoji.style.left = `${Math.random() * 100}vw`;
-        emoji.style.fontSize = `${0.8 + Math.random() * 1.2}em`; // menor variação
-        emoji.style.animationDuration = `${4 + Math.random() * 6}s`;
+        emoji.style.fontSize = `${0.8 + Math.random() * 0.8}em`; // menor variação
+        emoji.style.animationDuration = `${4 + Math.random() * 6}s, ${2 + Math.random() * 2}s`;
         document.body.appendChild(emoji);
       }
     }
