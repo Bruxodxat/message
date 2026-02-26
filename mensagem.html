@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <!-- Redireciona para expirado.html após 10 segundos -->
+  <!-- Redireciona para expirado.html após 5 segundos -->
   <meta http-equiv="refresh" content="5;url=expirado.html">
   <title>Mensagem</title>
   <style>
@@ -16,14 +16,46 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow: hidden; /* evita barra de rolagem */
     }
     h1 {
       font-size: 3em;
       text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+
+    /* Estilo dos emoticons */
+    .emoji {
+      position: absolute;
+      font-size: 2em;
+      opacity: 0.9;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh) rotate(0deg); }
+      to { transform: translateY(-10vh) rotate(360deg); }
     }
   </style>
 </head>
 <body>
   <h1>MAMA EU</h1>
+
+  <script>
+    function createEmojis() {
+      const emojis = ['😈','😂']; // diabinho e risada
+      for (let i = 0; i < 20; i++) {
+        const emoji = document.createElement('div');
+        emoji.classList.add('emoji');
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = `${Math.random() * 100}vw`;
+        emoji.style.fontSize = `${1.5 + Math.random() * 2}em`;
+        emoji.style.animationDuration = `${4 + Math.random() * 6}s`;
+        document.body.appendChild(emoji);
+      }
+    }
+
+    createEmojis();
+  </script>
 </body>
 </html>
