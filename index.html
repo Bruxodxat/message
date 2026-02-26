@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Mensagem Única</title>
-
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -19,13 +18,11 @@
       overflow: hidden;
       position: relative;
     }
-
     h1 {
       font-size: 2.5em;
       margin-bottom: 20px;
       text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
     }
-
     a.button {
       display: inline-block;
       padding: 15px 30px;
@@ -38,60 +35,21 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
-
-    a.button:hover {
-      background: #f0f0f0;
-      transform: scale(1.05);
-    }
-
-    a.button.hidden {
-      display: none;
-    }
-
+    a.button:hover { background: #f0f0f0; transform: scale(1.05); }
+    a.button.hidden { display: none; }
     footer {
       position: absolute;
       bottom: 20px;
       font-size: 0.9em;
       opacity: 0.7;
     }
-
-    /* PARTICULAS */
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .particle {
-      position: absolute;
-      bottom: -20px;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: subir linear infinite;
-    }
-
-    @keyframes subir {
-      from {
-        transform: translateY(0);
-        opacity: 0.8;
-      }
-      to {
-        transform: translateY(-110vh);
-        opacity: 0;
-      }
-    }
+    .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 0; }
+    .particle { position: absolute; bottom: -20px; border-radius: 50%; opacity: 0.8; animation: subir linear infinite; }
+    @keyframes subir { from { transform: translateY(0); opacity: 0.8; } to { transform: translateY(-110vh); opacity: 0; } }
   </style>
 </head>
-
 <body>
-
 <div class="particles" id="particles"></div>
-
 <h1 id="titulo">🔒 Não seja curioso...</h1>
 <a href="mensagem.html" class="button" id="uniqueButton">Não clique aqui!!</a>
 <footer>“A curiosidade é uma das forças que impulsionam o homem a fazer grandes descobertas”.</footer>
@@ -104,7 +62,6 @@
   const bloqueadoAte = localStorage.getItem("bloqueadoAte");
   const agora = Date.now();
 
-  // Se já existe bloqueio salvo e ainda não expirou
   if (bloqueadoAte && agora < parseInt(bloqueadoAte)) {
     esconderBotao(parseInt(bloqueadoAte) - agora);
   } else {
@@ -115,51 +72,39 @@
     const tempoFinal = Date.now() + TEMPO_BLOQUEIO;
     localStorage.setItem("bloqueadoAte", tempoFinal);
 
-    // Esconde imediatamente após o clique
+    // cria chave de acesso para mensagem.html
+    localStorage.setItem("acessoMensagem", "permitido");
+
     esconderBotao(TEMPO_BLOQUEIO);
   });
 
   function esconderBotao(tempoRestante) {
     button.classList.add("hidden");
-    titulo.textContent = "😂 Eu avisei"; // muda o título e emoji
+    titulo.textContent = "😂 Eu avisei";
 
-    // Reativa o botão só depois dos 5 minutos
     setTimeout(() => {
       localStorage.removeItem("bloqueadoAte");
       button.classList.remove("hidden");
-      titulo.textContent = "🔒 Não seja curioso..."; // volta ao original
+      titulo.textContent = "🔒 Não seja curioso...";
     }, tempoRestante);
   }
 
-  // =========================
-  // ANIMAÇÃO DE PARTÍCULAS
-  // =========================
-
+  // partículas
   const container = document.getElementById("particles");
-
   function criarParticula() {
     const particle = document.createElement("div");
     particle.classList.add("particle");
-
     const size = Math.random() * 6 + 2;
     particle.style.width = size + "px";
     particle.style.height = size + "px";
     particle.style.left = Math.random() * 100 + "vw";
-
     const cores = ["#ffffff", "#ffd700", "#87cefa", "#ff69b4", "#00ffff"];
     particle.style.background = cores[Math.floor(Math.random() * cores.length)];
-
     particle.style.animationDuration = (Math.random() * 5 + 5) + "s";
-
     container.appendChild(particle);
-
-    setTimeout(() => {
-      particle.remove();
-    }, 10000);
+    setTimeout(() => { particle.remove(); }, 10000);
   }
-
   setInterval(criarParticula, 200);
 </script>
-
 </body>
 </html>
