@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mensagem</title>
   <style>
     body {
@@ -10,7 +11,7 @@
       color: #fff;
       text-align: center;
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -29,18 +30,20 @@
     }
     @keyframes floatUp {
       from { transform: translateY(100vh) rotate(0deg); }
-      to { transform: translateY(-10vh) rotate(360deg); }
+      to { transform: translateY(-50vh) rotate(360deg); }
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 2em; }
+      .emoji { font-size: 0.8em; }
     }
   </style>
   <script>
-    // Proteção: só acessa se vier do botão
     if (localStorage.getItem("acessoMensagem") !== "permitido") {
       window.location.replace("index.html");
     } else {
       localStorage.removeItem("acessoMensagem");
     }
 
-    // Redireciona após 5 segundos
     setTimeout(() => {
       window.location.replace("expirado.html"); 
     }, 5000);
