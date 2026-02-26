@@ -67,20 +67,21 @@
   <script>
     const button = document.getElementById("uniqueButton");
 
-    button.addEventListener("click", function(event) {
-      // Desativa o botão imediatamente
-      button.classList.add("disabled");
-      button.textContent = "Já foi clicado!";
-      
-      // Opcional: impedir que o usuário volte e clique de novo
-      localStorage.setItem("clickedOnce", "true");
-    });
-
-    // Se já foi clicado antes, desativa automaticamente
+    // Verifica se já foi clicado antes
     if (localStorage.getItem("clickedOnce") === "true") {
       button.classList.add("disabled");
       button.textContent = "Já foi clicado!";
+      button.removeAttribute("href"); // remove o link
     }
+
+    button.addEventListener("click", function() {
+      // Marca como clicado
+      localStorage.setItem("clickedOnce", "true");
+      // Desativa o botão imediatamente
+      button.classList.add("disabled");
+      button.textContent = "Já foi clicado!";
+      button.removeAttribute("href");
+    });
   </script>
 </body>
 </html>
