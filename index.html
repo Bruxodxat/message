@@ -92,12 +92,13 @@
 
 <div class="particles" id="particles"></div>
 
-<h1>🔒 Não seja curioso...</h1>
+<h1 id="titulo">🔒 Não seja curioso...</h1>
 <a href="mensagem.html" class="button" id="uniqueButton">Não clique aqui!!</a>
 <footer>“A curiosidade é uma das forças que impulsionam o homem a fazer grandes descobertas”.</footer>
 
 <script>
   const button = document.getElementById("uniqueButton");
+  const titulo = document.getElementById("titulo");
   const TEMPO_BLOQUEIO = 5 * 60 * 1000; // 5 minutos
 
   const bloqueadoAte = localStorage.getItem("bloqueadoAte");
@@ -120,11 +121,13 @@
 
   function esconderBotao(tempoRestante) {
     button.classList.add("hidden");
+    titulo.textContent = "😂 Eu avisei"; // muda o título e emoji
 
     // Reativa o botão só depois dos 5 minutos
     setTimeout(() => {
       localStorage.removeItem("bloqueadoAte");
       button.classList.remove("hidden");
+      titulo.textContent = "🔒 Não seja curioso..."; // volta ao original
     }, tempoRestante);
   }
 
