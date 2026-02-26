@@ -25,19 +25,13 @@
     /* Estilo dos emoticons */
     .emoji {
       position: absolute;
-      font-size: 1em; /* menor tamanho */
-      opacity: 0.9;
-      animation: floatUp linear infinite, fadeInOut ease-in-out infinite;
+      opacity: 1; /* já visível ao carregar */
+      animation: floatUp linear infinite;
     }
 
     @keyframes floatUp {
-      from { transform: translateY(100vh) rotate(0deg); }
-      to { transform: translateY(-10vh) rotate(360deg); }
-    }
-
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
+      from { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      to { transform: translateY(-10vh) rotate(360deg); opacity: 1; }
     }
   </style>
   <script>
@@ -54,13 +48,13 @@
         emoji.classList.add('emoji');
         emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
         emoji.style.left = `${Math.random() * 100}vw`;
-        emoji.style.fontSize = `${0.8 + Math.random() * 0.6}em`; // menor variação
-        emoji.style.animationDuration = `${4 + Math.random() * 6}s, ${2 + Math.random() * 2}s`;
+        emoji.style.fontSize = `${0.8 + Math.random() * 0.6}em`;
+        emoji.style.animationDuration = `${4 + Math.random() * 6}s`;
         document.body.appendChild(emoji);
       }
     }
 
-    // Executa a função ao carregar a página
+    // Executa a função imediatamente ao carregar a página
     window.onload = createEmojis;
   </script>
 </head>
