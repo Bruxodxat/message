@@ -18,7 +18,6 @@
       align-items: center;
       overflow: hidden;
       position: relative;
-      z-index: 1;
     }
 
     h1 {
@@ -45,12 +44,8 @@
       transform: scale(1.05);
     }
 
-    a.button.disabled {
-      pointer-events: none;
-      opacity: 0.6;
-      background: #ccc;
-      color: #666;
-      box-shadow: none;
+    a.button.hidden {
+      display: none;
     }
 
     footer {
@@ -95,56 +90,39 @@
 
 <body>
 
-  <div class="particles" id="particles"></div>
+<div class="particles" id="particles"></div>
 
-  <h1>🔒 Não seja curioso...</h1>
-  <a href="mensagem.html" class="button" id="uniqueButton">Não clique aqui!!</a>
-  <footer>Esta mensagem poderá ser lida a cada 5 minutos</footer>
+<h1>🔒 Não seja curioso...</h1>
+<a href="mensagem.html" class="button" id="uniqueButton">Não clique aqui!!</a>
+<footer>Botão disponível novamente após 5 minutos</footer>
 
 <script>
-  // =========================
-  // CONTROLE DO BOTÃO
-  // =========================
-
   const button = document.getElementById("uniqueButton");
   const TEMPO_BLOQUEIO = 5 * 60 * 1000; // 5 minutos
+
+  const bloqueadoAte = localStorage.getItem("bloqueadoAte");
   const agora = Date.now();
-  const ultimoClique = localStorage.getItem("lastClickTime");
 
-  if (ultimoClique) {
-    const diferenca = agora - parseInt(ultimoClique);
-
-    if (diferenca < TEMPO_BLOQUEIO) {
-      bloquearBotao();
-
-      const tempoRestante = TEMPO_BLOQUEIO - diferenca;
-
-      setTimeout(() => {
-        liberarBotao();
-      }, tempoRestante);
-    }
+  if (bloqueadoAte && agora < parseInt(bloqueadoAte)) {
+    esconderBotao();
+  } else {
+    localStorage.removeItem("bloqueadoAte");
   }
 
   button.addEventListener("click", function() {
-    localStorage.setItem("lastClickTime", Date.now());
-    bloquearBotao();
-
-    setTimeout(() => {
-      liberarBotao();
-    }, TEMPO_BLOQUEIO);
+    const tempoFinal = Date.now() + TEMPO_BLOQUEIO;
+    localStorage.setItem("bloqueadoAte", tempoFinal);
   });
 
-  function bloquearBotao() {
-    button.classList.add("disabled");
-    button.textContent = "Aguarde 5 minutos...";
-    button.removeAttribute("href");
-  }
+  function esconderBotao() {
+    button.classList.add("hidden");
 
-  function liberarBotao() {
-    button.classList.remove("disabled");
-    button.textContent = "Não clique aqui!!";
-    button.setAttribute("href", "mensagem.html");
-    localStorage.removeItem("lastClickTime");
+    const tempoRestante = parseInt(bloqueadoAte) - Date.now();
+
+    setTimeout(() => {
+      localStorage.removeItem("bloqueadoAte");
+      button.classList.remove("hidden");
+    }, tempoRestante);
   }
 
   // =========================
@@ -160,7 +138,6 @@
     const size = Math.random() * 6 + 2;
     particle.style.width = size + "px";
     particle.style.height = size + "px";
-
     particle.style.left = Math.random() * 100 + "vw";
 
     const cores = ["#ffffff", "#ffd700", "#87cefa", "#ff69b4", "#00ffff"];
@@ -176,7 +153,6 @@
   }
 
   setInterval(criarParticula, 200);
-
 </script>
 
 </body>
