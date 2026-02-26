@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #b993d6, #8ca6db); /* lilás claro e azul claro */
+      background: linear-gradient(135deg, #b993d6, #8ca6db);
       color: #fff;
       text-align: center;
       margin: 0;
@@ -14,35 +14,39 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden; /* evita barra de rolagem */
+      overflow: hidden;
     }
     h1 {
       font-size: 3em;
       text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
       z-index: 1;
     }
-
-    /* Estilo dos emoticons */
     .emoji {
       position: absolute;
-      opacity: 1; /* já visível ao carregar */
+      font-size: 1em;
+      opacity: 0.9;
       animation: floatUp linear infinite;
     }
-
     @keyframes floatUp {
-      from { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-      to { transform: translateY(-10vh) rotate(360deg); opacity: 1; }
+      from { transform: translateY(100vh) rotate(0deg); }
+      to { transform: translateY(-10vh) rotate(360deg); }
     }
   </style>
   <script>
-    // Redireciona após 5 segundos substituindo no histórico
+    // Proteção: só acessa se vier do botão
+    if (localStorage.getItem("acessoMensagem") !== "permitido") {
+      window.location.replace("index.html");
+    } else {
+      localStorage.removeItem("acessoMensagem");
+    }
+
+    // Redireciona após 5 segundos
     setTimeout(() => {
       window.location.replace("expirado.html"); 
     }, 5000);
 
-    // Criar emojis animados
     function createEmojis() {
-      const emojis = ['😈','😂']; // diabinho e risada
+      const emojis = ['😈','😂'];
       for (let i = 0; i < 20; i++) {
         const emoji = document.createElement('div');
         emoji.classList.add('emoji');
@@ -53,8 +57,6 @@
         document.body.appendChild(emoji);
       }
     }
-
-    // Executa a função imediatamente ao carregar a página
     window.onload = createEmojis;
   </script>
 </head>
