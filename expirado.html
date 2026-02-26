@@ -27,13 +27,14 @@
       position: absolute;
       font-weight: bold;
       opacity: 0.8;
-      animation: rise 4s linear forwards;
+      animation: rise 5s linear forwards;
       pointer-events: none;
     }
 
     @keyframes rise {
       0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+      50% { transform: translateY(-50vh) translateX(-20px) scale(1.2); opacity: 0.9; }
+      100% { transform: translateY(-100vh) translateX(20px) scale(1.5); opacity: 0; }
     }
   </style>
 </head>
@@ -44,17 +45,25 @@
   <footer>© 2026</footer>
 
   <script>
-    const laughs = ["ha", "ha ha", "ha ha ha", "ha ha", "ha", "ha ha"];
+    const laughs = ["ha", "ha ha", "ha ha ha", "haha", "hahaha"];
+    const emoticons = ["😂", "🖕🏻", "😜", "🖕🏻", "😆"];
     const colors = ["#ff4d4d", "#4dff4d", "#4d4dff", "#ffff4d", "#ff4dff", "#4dffff"];
 
     function createParticle() {
       const span = document.createElement("span");
       span.className = "particle";
-      span.textContent = laughs[Math.floor(Math.random() * laughs.length)];
+
+      // 50% chance de ser risada, 50% chance de ser emoticon
+      if (Math.random() < 0.5) {
+        span.textContent = laughs[Math.floor(Math.random() * laughs.length)];
+      } else {
+        span.textContent = emoticons[Math.floor(Math.random() * emoticons.length)];
+      }
+
       span.style.left = Math.random() * window.innerWidth + "px";
       span.style.bottom = "0px";
       span.style.color = colors[Math.floor(Math.random() * colors.length)];
-      span.style.fontSize = (Math.random() * 20 + 14) + "px";
+      span.style.fontSize = (Math.random() * 24 + 18) + "px";
       document.body.appendChild(span);
 
       span.addEventListener("animationend", () => {
@@ -62,7 +71,7 @@
       });
     }
 
-    setInterval(createParticle, 900);
+    setInterval(createParticle, 700);
   </script>
 </body>
 </html>
