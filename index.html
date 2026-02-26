@@ -103,8 +103,9 @@
   const bloqueadoAte = localStorage.getItem("bloqueadoAte");
   const agora = Date.now();
 
+  // Se já existe bloqueio salvo e ainda não expirou
   if (bloqueadoAte && agora < parseInt(bloqueadoAte)) {
-    esconderBotao();
+    esconderBotao(parseInt(bloqueadoAte) - agora);
   } else {
     localStorage.removeItem("bloqueadoAte");
   }
@@ -112,13 +113,15 @@
   button.addEventListener("click", function() {
     const tempoFinal = Date.now() + TEMPO_BLOQUEIO;
     localStorage.setItem("bloqueadoAte", tempoFinal);
+
+    // Esconde imediatamente após o clique
+    esconderBotao(TEMPO_BLOQUEIO);
   });
 
-  function esconderBotao() {
+  function esconderBotao(tempoRestante) {
     button.classList.add("hidden");
 
-    const tempoRestante = parseInt(bloqueadoAte) - Date.now();
-
+    // Reativa o botão só depois dos 5 minutos
     setTimeout(() => {
       localStorage.removeItem("bloqueadoAte");
       button.classList.remove("hidden");
