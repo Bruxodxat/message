@@ -2,8 +2,6 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <!-- Redireciona para expirado.html após 5 segundos -->
-  <meta http-equiv="refresh" content="5;url=expirado.html">
   <title>Mensagem</title>
   <style>
     body {
@@ -27,7 +25,7 @@
     /* Estilo dos emoticons */
     .emoji {
       position: absolute;
-      font-size: 1.2em; /* menor tamanho */
+      font-size: 1em; /* menor tamanho */
       opacity: 0.9;
       animation: floatUp linear infinite;
     }
@@ -37,11 +35,14 @@
       to { transform: translateY(-10vh) rotate(360deg); }
     }
   </style>
-</head>
-<body>
-  <h1>MAMA EU</h1>
-
   <script>
+    // Redireciona após 5 segundos substituindo no histórico
+    setTimeout(() => {
+      window.location.replace("expirado.html"); 
+      // replace() impede que o usuário volte para mensagem.html
+    }, 5000);
+
+    // Criar emojis animados
     function createEmojis() {
       const emojis = ['😈','😂']; // diabinho e risada
       for (let i = 0; i < 20; i++) {
@@ -49,7 +50,7 @@
         emoji.classList.add('emoji');
         emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
         emoji.style.left = `${Math.random() * 100}vw`;
-        emoji.style.fontSize = `${1 + Math.random() * 1.2}em`; // menor variação
+        emoji.style.fontSize = `${0.8 + Math.random() * 1.2}em`; // menor variação
         emoji.style.animationDuration = `${4 + Math.random() * 6}s`;
         document.body.appendChild(emoji);
       }
@@ -57,5 +58,8 @@
 
     createEmojis();
   </script>
+</head>
+<body>
+  <h1>MAMA EU</h1>
 </body>
 </html>
