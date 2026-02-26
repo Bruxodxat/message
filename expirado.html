@@ -2,9 +2,49 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Expirado</title>
+  <title>Mensagem Expirada</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+      color: #fff;
+      text-align: center;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    }
+
+    p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+
+    .icon {
+      font-size: 4em;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9em;
+      opacity: 0.7;
+    }
+  </style>
 </head>
-<body style="text-align:center; font-size:2em; margin-top:20%;">
-  <p>❌ Esta mensagem já expirou.</p>
+<body>
+  <div class="icon">❌</div>
+  <h1>Esta mensagem já expirou</h1>
+  <p>Por motivos de segurança, não é mais possível visualizar o conteúdo.</p>
+  <footer>Mensagem autodestrutiva • Visualização única</footer>
 </body>
 </html>
